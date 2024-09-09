@@ -1,3 +1,182 @@
-.Elias{
-  background-color: blue($color: #000000);
+@use '../../utility/Globalstyle.scss' as Var;
+
+@mixin flexDispo {
+  display: flex;
+  flex-direction: column;
 }
+
+.Selected{
+  background-color: Var.$SecondaryBlue !important;
+}
+
+
+.Landing{
+  @include flexDispo;
+  padding: 20px;
+  color: whitesmoke;
+
+  img{
+    width: 100%;
+    font-weight: bold;
+    margin-bottom: 20px;
+    max-width: 400px;
+    align-self: center;
+    
+    @media (min-width : Var.$BreakpointSM){
+      font-size: Var.$SecondaryTD;
+      align-self: center;
+      max-width: 500px;
+    }
+
+    @media (min-width : Var.$BreakpointT){
+      max-width: 700px;
+    }
+
+    @media (min-width : Var.$BreakpointD){
+      max-width: 900px;
+    }
+
+  }
+
+  h2{
+    font-size: Var.$TitleM;
+    margin-bottom: 20px;
+    align-self: center;
+
+    @media (min-width : Var.$BreakpointSM){
+      font-size: Var.$TitleT;
+    }
+
+    @media (min-width : Var.$BreakpointD){
+      font-size: Var.$TitleD;
+    }
+  }
+
+  section{
+    @include flexDispo;
+    color: whitesmoke;
+    padding: 10px;
+
+    @media (min-width : Var.$BreakpointT){
+      border: solid 3px Var.$SecondaryBlue;
+      border-radius: 20px;
+      width: 500px;
+      align-self: center;
+      padding: 25px;
+    }
+
+    @media (min-width : Var.$BreakpointD){
+      width: 250px;
+      width: 600px;
+    }
+
+    form{
+      @include flexDispo;
+      align-items: stretch;
+
+      input{
+        padding: 20px 10px;
+        background-color: white;
+        color: black;
+        font-weight: bolder;
+        font-size: Var.$SecondaryTM;
+        margin-bottom: 30px;
+        max-width: 400px;
+
+        @media (min-width : Var.$BreakpointSM){
+          font-size: Var.$SecondaryTD;
+          align-self: center;
+          width: 400px;
+        }
+
+        @media (min-width : Var.$BreakpointD){
+          font-size: Var.$CorpD;
+          width: 700px;
+        }
+        
+        &::placeholder{
+          color: black;
+          font-weight: bolder;  
+        }
+
+        &:focus{
+          border: none;
+        }
+
+      }
+
+      input[type=password],input[type=submit]{
+        margin-bottom: 7px;
+      }
+
+      input[type=submit]{
+        background-color: Var.$SecondaryBlue;
+        border-radius: 20px;
+        padding: 15px 20px;
+        color: white;
+        font-size: Var.$SecondaryTM;
+        align-self: center;
+        cursor: pointer;
+
+        @media (min-width : Var.$BreakpointSM){
+          font-size: Var.$CorpM;
+          width: 150px;
+        }
+
+        @media (min-width : Var.$BreakpointD){
+          font-size: Var.$CorpD;
+          width: 250px;
+        }
+      }
+
+      div{
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        margin-bottom: 30px;
+        cursor: pointer;
+
+        @media (min-width : Var.$BreakpointSM){
+          justify-content: center;
+        }
+
+        span{
+          border: 1px solid gray;
+          background-color: white;
+          width: 12px;
+          height: 12px;
+
+          @media (min-width : Var.$BreakpointSM){
+            width: 15px;
+            height: 15px;
+          }
+        }
+      }
+    }
+
+    p{
+      font-size: Var.$SecondaryTM;
+      text-align: center;
+      text-decoration: underline;
+
+      span{
+        color: Var.$SecondaryBlue;
+        cursor: pointer;
+        text-decoration: underline;
+      }
+
+      @media (min-width : Var.$BreakpointSM){
+        font-size: Var.$CorpM;
+      }
+
+      @media (min-width : Var.$BreakpointD){
+        font-size: Var.$CorpD;
+      }
+    }
+    
+  }
+
+}
+
+
+
