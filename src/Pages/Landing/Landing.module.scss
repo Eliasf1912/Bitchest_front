@@ -9,6 +9,24 @@
   background-color: Var.$SecondaryBlue !important;
 }
 
+.Error{
+  p{
+    color: Var.$Red;
+    font-weight: bold;
+    font-size: Var.$SecondaryTM !important;
+    text-decoration: none !important;
+
+    @media (min-width : Var.$BreakpointD){
+      font-size: Var.$SecondaryTD !important;
+    }
+  }
+
+  Input{
+    border: solid 2px Var.$Red;
+  }
+
+}
+
 
 .Landing{
   @include flexDispo;
@@ -29,11 +47,11 @@
     }
 
     @media (min-width : Var.$BreakpointT){
-      max-width: 700px;
+      max-width: 600px;
     }
 
     @media (min-width : Var.$BreakpointD){
-      max-width: 900px;
+      max-width: 700px;
     }
 
   }
@@ -56,23 +74,27 @@
     @include flexDispo;
     color: whitesmoke;
     padding: 10px;
+    width: 80%;
+    align-self: center;
 
     @media (min-width : Var.$BreakpointT){
       border: solid 3px Var.$SecondaryBlue;
       border-radius: 20px;
-      width: 500px;
-      align-self: center;
       padding: 25px;
-    }
-
-    @media (min-width : Var.$BreakpointD){
-      width: 250px;
       width: 600px;
     }
 
     form{
       @include flexDispo;
       align-items: stretch;
+      padding: 20px 10px;
+
+      fieldset{
+        @include flexDispo;
+        gap: 5px;
+        margin-bottom: 30px;
+        align-items: center;
+      }
 
       input{
         padding: 20px 10px;
@@ -80,18 +102,17 @@
         color: black;
         font-weight: bolder;
         font-size: Var.$SecondaryTM;
-        margin-bottom: 30px;
-        max-width: 400px;
+        width: 100%;
 
         @media (min-width : Var.$BreakpointSM){
           font-size: Var.$SecondaryTD;
           align-self: center;
-          width: 400px;
+          // width: 400px;
         }
 
         @media (min-width : Var.$BreakpointD){
           font-size: Var.$CorpD;
-          width: 700px;
+          // width: 700px;
         }
         
         &::placeholder{
@@ -117,6 +138,7 @@
         font-size: Var.$SecondaryTM;
         align-self: center;
         cursor: pointer;
+        transition: 0.2ms;
 
         @media (min-width : Var.$BreakpointSM){
           font-size: Var.$CorpM;
@@ -135,6 +157,7 @@
         gap: 7px;
         margin-bottom: 30px;
         cursor: pointer;
+        transition: 0.2ms;
 
         @media (min-width : Var.$BreakpointSM){
           justify-content: center;

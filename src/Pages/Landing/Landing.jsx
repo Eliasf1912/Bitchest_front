@@ -11,34 +11,137 @@ export default function Main() {
   // State pour les condtions pour le remember me
   const [EnableRememberMe,setEnableRememberMe] = useState(false);
 
+  // State pour les inputs  
+  const [UserNameInput,setUserNameInput] = useState('')
+  const [EmailInput,setEmailInput] = useState('')
+  const [PasswordInput,setPasswordInput] = useState('')
+
+  // State pour les erreurs d'inputs
+  const [UserNameInputError,setUserNameInputError] = useState(false)
+  const [EmailInputError,setEmailInputError] = useState(false)
+  const [PasswordInputError,setPasswordInputError] = useState(false)
+
+
+  // Cette fonction gére le changement de méthode d'authentification
   const ToggleSwicthAuth = () => {
     if(SwitchAuth === 'Sign') {
+      // On reset le form au changement
       setSwitchAuth('Login')
       setEnableCondition(false)
       setEnableRememberMe(false)
+      setUserNameInput('')
+      setUserNameInputError(false)
+      setEmailInput('')
+      setEmailInputError(false)
+      setPasswordInput('')
+      setPasswordInputError(false)
     }
     else{
       setSwitchAuth('Sign')
       setEnableCondition(false)
       setEnableRememberMe(false)
+      setUserNameInput('')
+      setUserNameInputError(false)
+      setEmailInput('')
+      setEmailInputError(false)
+      setPasswordInput('')
+      setPasswordInputError(false)
     }
   }
 
+  // Ces fonction gére le remember me et l'âge requis
   const ToggleCondition = () => {
-    if(EnableCondition) {
-      setEnableCondition(false)
+    if(!EnableCondition) {
+      setEnableCondition(true)
+      console.log(EnableCondition)
     }
     else{
-      setEnableCondition(true)
+      setEnableCondition(false)
+      console.log(EnableCondition)
     }
   }
 
   const ToggleRemeberMe = () => {
-    if(EnableRememberMe) {
-      setEnableRememberMe(false)
+    if(!EnableRememberMe) {
+      setEnableRememberMe(true)
     }
     else{
-      setEnableRememberMe(true)
+      setEnableRememberMe(false)
+    } 
+  }
+
+  // Cette fonction gére le changement des inputs 
+  const HandleChangeInput = (e) => {
+    switch (e.target.name) {
+      case 'Email':
+        if(SwitchAuth === 'Sign'){
+          if(e.target.value === '' || !/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(e.target.value)){
+            setEmailInputError(true)
+          }else{
+            setEmailInputError(false)
+          }
+        }
+        else{
+          if(e.target.value === ''){
+            setEmailInputError(true)
+          }else{
+            setEmailInputError(false)
+          }
+        }
+        setEmailInput(e.target.value)
+      break;
+      case 'Username':
+        if(e.target.value === ''){
+          setUserNameInputError(true)
+        }else{
+          setUserNameInputError(true)
+        }
+        setUserNameInput(e.target.value)
+      break;
+      case 'Password':
+        if(SwitchAuth === 'Sign'){
+          if(e.target.value === '' || !/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(e.target.value)){
+            setPasswordInputError(true)
+          }else{
+            setPasswordInputError(false)
+          }
+        }
+        else{
+          if(e.target.value === ''){
+            setPasswordInputError(true)
+          }else{
+            setPasswordInputError(false)
+          }
+        }
+        setPasswordInput(e.target.value)
+      break;
+    }
+  }
+
+  // Permet de valider la robustesse du mot de passe 
+  function TestPassword(Pwd){
+    if( 
+      /[A-Z]/.test(Pwd) && 
+      /[a-z]/.test(Pwd) && 
+      /[0-9]/.test(Pwd) && 
+      /[!@#$%^&*(),.?":{}|<>]/.test(Pwd) &&
+      Pwd.length >= 8
+    ){
+      return true
+    }
+    else{
+      return false
+    }
+  }
+
+  // Cette fonction permet d'envoyer le formulaire si tout les conditions sont réunis 
+  const SubmitForm = (e) => {
+    e.preventDefault()
+    if(SwitchAuth === 'Sign'){
+      // sing : 3 input rempli qui satisfait les conditions, 
+    }
+    else{
+      // login : Email pas important et Email et pwd doit être rempli
     }
   }
 
@@ -46,18 +149,26 @@ export default function Main() {
     
     <section className={styles.Landing}>
       <img src={Logo} className={styles.Logo} alt="Logo bitchest" />
-
       {/* Section sing up */}
       {
         SwitchAuth === 'Sign' && 
         <section>
           <h2>Sign up</h2>
           <form>
-            <input type="email" placeholder='Email' name='Email'/>
-            <input type="text" placeholder='Username' name='Username'/>
-            <input type="Password" placeholder='Password' name='Password'/>
-            <div onClick={ToggleRemeberMe}>
-              <span className={ EnableRememberMe ? styles.Selected : null}></span>
+            <fieldset className={EmailInputError ? styles.Error : null}>
+              <input type="email" placeholder='Email' name='Email' onChange={HandleChangeInput}/>
+              {EmailInputError && <p className={styles.Error}>The Email is incorrect</p> }
+            </fieldset>
+            <fieldset className={UserNameInputError ? styles.Error : null}>
+              <input type="text" placeholder='Username' name='Username' onChange={HandleChangeInput}/>
+              {UserNameInputError && <p>This UserName already exits, choose another one !</p> }
+            </fieldset>
+            <fieldset className={PasswordInputError ? styles.Error : null}>
+              <input type="Password" placeholder='Password' name='Password' onChange={HandleChangeInput}/>
+              {PasswordInputError && <p className={styles.Error}>Must be 8+ chars, with 1 uppercase, 1 lowercase, 1 number, and 1 symbol</p>}
+            </fieldset>
+            <div onClick={ToggleCondition}>
+              <span className={ EnableCondition ? styles.Selected : null}></span>
               <p>I confirm that I am over 18</p>
             </div>
             <input type="submit" value='Sign up'/>
@@ -72,11 +183,14 @@ export default function Main() {
         <section>
           <h2>Login</h2>
           <form>
-            <input type="text" placeholder='Username' name='Username'/>
-            <input type="Password" placeholder='Password' name='Password'/>
-
-            <div onClick={ToggleCondition}>
-              <span className={EnableCondition ? styles.Selected : null}></span>
+            <fieldset className={EmailInputError ? styles.Error : null}>
+              <input type="text" placeholder='Username' name='Username' onChange={HandleChangeInput}/>
+            </fieldset>
+            <fieldset className={EmailInputError ? styles.Error : null}>
+              <input type="Password" placeholder='Password' name='Password' onChange={HandleChangeInput}/>
+            </fieldset>
+            <div onClick={ToggleRemeberMe}>
+              <span className={EnableRememberMe ? styles.Selected : null} ></span>
               <p>Remember me</p>
             </div>
             <input type="submit" value='Login'/>
