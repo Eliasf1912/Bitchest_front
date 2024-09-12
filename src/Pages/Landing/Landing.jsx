@@ -100,7 +100,7 @@ export default function Main() {
       break;
       case 'Password':
         if(SwitchAuth === 'Sign'){
-          if(e.target.value === '' || !/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(e.target.value)){
+          if(e.target.value === '' || !TestPassword(e.target.value)){
             setPasswordInputError(true)
           }else{
             setPasswordInputError(false)
