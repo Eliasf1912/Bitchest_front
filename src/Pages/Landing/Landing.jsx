@@ -21,6 +21,9 @@ export default function Main() {
   const [EmailInputError,setEmailInputError] = useState(false)
   const [PasswordInputError,setPasswordInputError] = useState(false)
 
+  // State pour le refus du formulaire
+  const [InvalidForm,SetInvalidForm] = useState(false)
+
 
   // Cette fonction gére le changement de méthode d'authentification
   const ToggleSwicthAuth = () => {
@@ -94,7 +97,7 @@ export default function Main() {
         if(e.target.value === ''){
           setUserNameInputError(true)
         }else{
-          setUserNameInputError(true)
+          setUserNameInputError(false)
         }
         setUserNameInput(e.target.value)
       break;
@@ -138,10 +141,22 @@ export default function Main() {
   const SubmitForm = (e) => {
     e.preventDefault()
     if(SwitchAuth === 'Sign'){
-      // sing : 3 input rempli qui satisfait les conditions, 
+      if(!EmailInputError && !UserNameInputError && !PasswordInputError && EnableCondition && !EmailInput.length == 0 && !UserNameInput.length == 0 && !PasswordInput.length == 0){
+        alert('submit réussi')
+      }
+      else{
+        SetInvalidForm(true)
+      }
     }
     else{
-      // login : Email pas important et Email et pwd doit être rempli
+      if(!EmailInputError && !PasswordInputError && !EmailInput.length == 0 && !PasswordInput.length == 0){
+        alert('submit réussi')
+        console.log(EmailInputError,PasswordInputError)
+      }
+      else{
+        SetInvalidForm(true)
+      }
+
     }
   }
 
@@ -156,22 +171,22 @@ export default function Main() {
           <h2>Sign up</h2>
           <form>
             <fieldset className={EmailInputError ? styles.Error : null}>
-              <input type="email" placeholder='Email' name='Email' onChange={HandleChangeInput}/>
+              <input type="email" placeholder='Email' name='Email' onChange={HandleChangeInput} value={EmailInput}/>
               {EmailInputError && <p className={styles.Error}>The Email is incorrect</p> }
             </fieldset>
             <fieldset className={UserNameInputError ? styles.Error : null}>
-              <input type="text" placeholder='Username' name='Username' onChange={HandleChangeInput}/>
+              <input type="text" placeholder='Username' name='Username' onChange={HandleChangeInput} value={UserNameInput}/>
               {UserNameInputError && <p>This UserName already exits, choose another one !</p> }
             </fieldset>
             <fieldset className={PasswordInputError ? styles.Error : null}>
-              <input type="Password" placeholder='Password' name='Password' onChange={HandleChangeInput}/>
+              <input type="Password" placeholder='Password' name='Password' onChange={HandleChangeInput} value={PasswordInput}/>
               {PasswordInputError && <p className={styles.Error}>Must be 8+ chars, with 1 uppercase, 1 lowercase, 1 number, and 1 symbol</p>}
             </fieldset>
             <div onClick={ToggleCondition}>
               <span className={ EnableCondition ? styles.Selected : null}></span>
               <p>I confirm that I am over 18</p>
             </div>
-            <input type="submit" value='Sign up'/>
+            <input type="submit" value='Sign up' onClick={SubmitForm} className={InvalidForm ? styles.Refused : null} onAnimationEnd={()=>{SetInvalidForm(false)}}/>
           </form>
           <p>Got one already ? <span onClick={ToggleSwicthAuth}>Login</span></p>
         </section>
@@ -184,16 +199,17 @@ export default function Main() {
           <h2>Login</h2>
           <form>
             <fieldset className={EmailInputError ? styles.Error : null}>
-              <input type="text" placeholder='Username' name='Username' onChange={HandleChangeInput}/>
+              <input type="email" placeholder='Email' name='Email' onChange={HandleChangeInput} value={EmailInput}/>
+              {EmailInputError && <p className={styles.Error}>The Email is incorrect</p> }
             </fieldset>
-            <fieldset className={EmailInputError ? styles.Error : null}>
-              <input type="Password" placeholder='Password' name='Password' onChange={HandleChangeInput}/>
+            <fieldset className={PasswordInputError ? styles.Error : null}>
+              <input type="Password" placeholder='Password' name='Password' onChange={HandleChangeInput} value={PasswordInput}/>
             </fieldset>
             <div onClick={ToggleRemeberMe}>
               <span className={EnableRememberMe ? styles.Selected : null} ></span>
               <p>Remember me</p>
             </div>
-            <input type="submit" value='Login'/>
+            <input type="submit" value='Login' onClick={SubmitForm} className={InvalidForm ? styles.Refused : null} onAnimationEnd={()=>{SetInvalidForm(false)}}/>
           </form>
           <p>Don’t have an account yet ? <span onClick={ToggleSwicthAuth}>Get one ! </span></p>
         </section> 
