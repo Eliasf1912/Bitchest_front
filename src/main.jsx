@@ -4,6 +4,8 @@ import { createBrowserRouter,RouterProvider } from "react-router-dom";
 import Landing from './Pages/Landing/Landing';
 import Error from './Pages/Error/Error';
 import './index.scss'
+import DashBoardUser from './Pages/DashboardUser/DashBoardUser';
+import DashBoardAdmin from './Pages/DashBoardAdmin/DashBoardAdmin'
 
 
 const router = createBrowserRouter([
@@ -12,6 +14,16 @@ const router = createBrowserRouter([
     element: <Landing />,
     errorElement: <Error />,
   },
+  {
+    path: "/DashBoardUser",
+    element: <DashBoardUser />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/DashBoardAdmin",
+    element: <DashBoardAdmin />,
+    errorElement: <Error />,
+  }
 ]);
 
 

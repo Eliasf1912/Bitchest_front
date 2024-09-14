@@ -27,6 +27,18 @@
 
 }
 
+.LoginError{
+  color: Var.$Red;
+  font-size: Var.$SecondaryTD !important;
+  font-weight: bolder;
+  text-align: center;
+  margin-top: 20px;
+
+  @media (min-width : Var.$BreakpointSM){
+    font-size: Var.$CorpD;
+  }
+}
+
 .Refused{
   animation: horizontal-shaking 0.5s ease-in-out;
   background-color: Var.$Red !important;
@@ -108,6 +120,27 @@
         gap: 5px;
         margin-bottom: 30px;
         align-items: center;
+
+        select{
+          background-color: white;
+          position: relative;
+          width: 100%;
+          height: 62px;
+          font-size: Var.$SecondaryTM;
+          font-weight: bolder;
+          padding: 0 5px;
+
+          @media (min-width : Var.$BreakpointSM){
+            font-size: Var.$SecondaryTD;
+            align-self: center;
+            // width: 400px;
+          }
+  
+          @media (min-width : Var.$BreakpointD){
+            font-size: Var.$CorpD;
+            // width: 700px;
+          }
+        }
       }
 
       input{
