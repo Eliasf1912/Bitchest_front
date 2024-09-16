@@ -1,0 +1,124 @@
+@use '../../utility/Globalstyle.scss' as Var;
+
+@mixin flexDispo {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin button {
+  background-color: Var.$SecondaryBlue;
+  color: white;
+  font-size: Var.$CorpM;
+  padding: 10px 12px;
+  border-radius: 50%;
+  box-shadow: black 2px 2px 3px;
+  cursor: pointer;
+
+  svg{
+    background-color: transparent;
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@mixin BurgerMenu{
+  z-index: 100;
+  position: absolute;
+  @include flexDispo;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 80%;
+  height: 100vh;
+  padding-top: 100px;
+  background-color: Var.$MainColor;
+  box-shadow: black 0 2px 4px;
+  transition: 700ms ease-in-out;
+
+  @media (min-width : Var.$BreakpointT){
+    display: none;
+  }
+
+  div{
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    a{
+      background-color: transparent;
+      color: white;
+      display: flex;
+      flex-direction: row;
+      align-items: center; 
+      font-size: Var.$CorpM;
+      font-weight: bolder;
+      gap: 10px;
+
+      @media (min-width : Var.$BreakpointSM){
+        font-size: Var.$SecondaryTD;
+      }
+      
+      &:hover{
+        color: Var.$SecondaryBlue;
+      }
+
+      p{
+        background-color: transparent;
+      }
+  
+      svg{
+        background-color: transparent;
+        width: 25px;
+        height: 25px;
+
+        @media (min-width : Var.$BreakpointSM){
+          width: 30px;
+          height: 30px;
+        }
+      }
+  
+    }
+  }
+
+}
+
+.MenuOpen {
+  @include BurgerMenu;
+  transform: translateX(0px) 
+}
+
+.MenuClose {
+  @include BurgerMenu;
+  transform: translateX(-100%) 
+}
+
+.BurgerMenuOpen{
+  @include button;
+  align-self: flex-start;
+
+  @media (min-width : Var.$BreakpointT){
+    display: none;
+  }
+}
+
+.BurgerMenuClose{
+  @include button;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.DashBoard{
+  position: relative;
+  padding: 20px;
+  @include flexDispo;
+  align-items: center;
+  gap: 10px;
+  
+  @media (min-width : Var.$BreakpointT){
+    margin-left: 25%;
+  }
+
+}
+

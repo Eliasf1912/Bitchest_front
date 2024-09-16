@@ -1,4 +1,5 @@
 const APIurl = 'https://127.0.0.1:8000/'
+import { useNavigate } from "react-router-dom";
 
 
 export async function Register(UserName,Email,Pwd){
@@ -64,4 +65,22 @@ export function setCookie(Name, Value, Days) {
   date.setTime(date.getTime() + (Days * 24 * 60 * 60 * 1000));
   const expires = "expires=" + date.toUTCString();
   document.cookie = `${Name}=${Value};${expires};secure;path=/`;
+}
+
+export function RemoveCookie(nom) {
+  document.cookie = `${nom}=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+}
+
+
+export function Logout(e){
+  const Navigate = useNavigate();
+  e.preventDefault()
+  let cookies = (document.cookie).split(';')
+  console.log(cookies)
+  cookies.forEach(cookie => {
+    if(cookie.includes('AuthToken')){
+      RemoveCookie('AuthToken');
+    }
+  });
+  Navigate('/')
 }
