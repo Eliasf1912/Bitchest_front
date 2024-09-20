@@ -175,7 +175,7 @@ export default function Main() {
         try {
           // On récupére le token et on en fait un cookie
           const ResultLogin =  await Login(UserNameInput,PasswordInput)
-          setCookie('AuthToken',ResultLogin.Token,1)
+          setCookie('AuthToken',ResultLogin.token,1)
           if(SelectedValue === 'User'){
             Navigate('/DashBoardUser')
           }

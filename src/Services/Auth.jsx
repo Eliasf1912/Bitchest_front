@@ -60,6 +60,39 @@ export async function Login(UserName,Pwd){
   }
 }
 
+export async function GetUserDashBoardInformations(Cookie){
+  try {
+    const Response = await fetch(`https://127.0.0.1:8000/api/user/dashboard`, 
+      {
+        method : 'GET',
+        headers: {
+          "Content-Type" : "application/json",
+          "Authorization" : `Bearer ${Cookie}`
+        }
+      }
+    )
+    if(Response.ok){
+      return await Response.json()
+    }
+  } catch (Error) {
+    throw Error
+  }
+}
+
+// Cookie méthode
+
+export function GetCookie(Nom){
+  let Token = ''
+  const Cookies = document.cookie.split(";");
+  Cookies.forEach(Cookie => {
+    let NameCookie = Cookie.split('=');
+    if(NameCookie[0] == Nom){
+      Token = NameCookie[1].toString()
+    }
+  })
+  return Token
+}
+
 export function setCookie(Name, Value, Days) {
   const date = new Date();
   date.setTime(date.getTime() + (Days * 24 * 60 * 60 * 1000));
@@ -67,20 +100,6 @@ export function setCookie(Name, Value, Days) {
   document.cookie = `${Name}=${Value};${expires};secure;path=/`;
 }
 
-export function RemoveCookie(nom) {
-  document.cookie = `${nom}=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-}
-
-
-export function Logout(e){
-  const Navigate = useNavigate();
-  e.preventDefault()
-  let cookies = (document.cookie).split(';')
-  console.log(cookies)
-  cookies.forEach(cookie => {
-    if(cookie.includes('AuthToken')){
-      RemoveCookie('AuthToken');
-    }
-  });
-  Navigate('/')
+export function RemoveCookie(Nom) {
+  document.cookie = `${Nom}=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 }

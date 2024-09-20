@@ -1,0 +1,129 @@
+@use '../../utility/Globalstyle.scss' as Var;
+
+@mixin flexDispo {
+  display: flex;
+  flex-direction: column;
+}
+
+.Positive{
+  color : Var.$Green;
+}
+
+.Negative{
+  color : Var.$Red;
+}
+
+.CryptoTable{
+  @include flexDispo;
+  gap: 15px;
+  border: solid 2px white;
+  border-radius: 20px;
+  padding: 20px;
+  width: 350px;
+  color: white;
+  box-shadow: black 1px 2px 3px;
+  align-items: start;
+  margin-top: 30px;
+
+  @media (min-width : Var.$BreakpointT){
+    width: 500px;
+  }
+
+  @media (min-width : Var.$BreakpointD){
+    width: 800px;
+  }
+
+  h2{
+    font-weight: bold;
+    font-size: Var.$TitleM;
+
+    @media (min-width : Var.$BreakpointT){
+      font-size: Var.$TitleT;
+    }
+
+  }
+
+  table{
+    @include flexDispo;
+    border-spacing: 20px 10px;
+
+    @media (min-width : Var.$BreakpointT){
+      border-spacing: 40px 20px;
+    }
+
+    @media (min-width : Var.$BreakpointD){
+      border-spacing: 90px 20px;
+    }
+    
+    thead{
+      display: none;
+      font-weight: bolder;
+      font-size: Var.$CorpD;
+
+      @media (min-width : Var.$BreakpointT){
+        display: block;
+      }
+    }
+
+    tbody{
+
+      font-size: Var.$SecondaryTD;
+
+      @media (min-width : Var.$BreakpointT){
+        font-size: Var.$CorpD;
+      }
+      
+      tr{
+        td{
+          button{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: Var.$SecondaryBlue;
+            color: white;
+            font-size: Var.$CorpM;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: rgba(24, 23, 23, 0.35) -1px 2px 4px;
+            cursor: pointer;
+            width: fit-content;
+
+            svg{
+              background-color: transparent;
+              width: 20px;
+              height: 20px;
+
+              @media (min-width : Var.$BreakpointT){
+                width: 27px;
+                height: 27px;
+              }
+            }
+
+          }
+
+          div{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            @media (min-width : Var.$BreakpointT){
+              gap: 20px;
+            }
+
+            img{
+              width: 30px;
+              height: 30px;
+
+              @media (min-width : Var.$BreakpointT){
+                width: 40px;
+                height: 40px;
+              }
+            }
+
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+@use '../../utility/Globalstyle.scss' as Var;
+
+@mixin flexDispo {
+  display: flex;
+  flex-direction: column;
+}
+
+.Balance{
+  @include flexDispo;
+  gap: 15px;
+  border: solid 2px white;
+  border-radius: 20px;
+  padding: 20px;
+  width: 350px;
+  color: white;
+  box-shadow: black 1px 2px 3px;
+
+  @media (min-width : Var.$BreakpointD){
+    width: 350px;
+  }
+
+  h2{
+    font-weight: bold;
+    font-size: Var.$TitleM;
+
+    @media (min-width : Var.$BreakpointT){
+      font-size: Var.$TitleT;
+    }
+
+  }
+
+  span{
+    font-size: Var.$TitleM;
+    color: Var.$Green;
+
+    @media (min-width : Var.$BreakpointT){
+      font-size: Var.$TitleT;
+    }
+
+  }
+
+  button{
+    background-color: Var.$SecondaryBlue;
+    color: white;
+    font-size: Var.$CorpM;
+    align-self: flex-end;
+    font-weight: bold;
+    padding: 10px 12px;
+    border-radius: 10px;
+    box-shadow: rgba(24, 23, 23, 0.35) -1px 2px 1px;
+    cursor: pointer;
+    width: fit-content;
+
+    
+    @media (min-width : Var.$BreakpointSM){
+      font-size: Var.$SecondaryTD;
+    }
+
+    @media (min-width : Var.$BreakpointD){
+      font-size: Var.$CorpD;
+    }
+    
+  }
+
+}
