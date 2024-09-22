@@ -16,6 +16,7 @@ import Stelar from '../../assets/stellar.png'
 export default function CryptoTable({Cryptos}) {
 
   const Navigate = useNavigate() 
+  const [CryptoTable,setCryptoTable] = useState([])
   let CryptosArr = [];
 
   const SelectLogo = (CryptoName) => {
@@ -78,8 +79,10 @@ export default function CryptoTable({Cryptos}) {
     }
   })
 
+  // setCryptoTable(CryptosArr)
+
   const Purchase = (crypto) => {
-    Navigate('/purchaseForm', {state : {crypto}})
+    Navigate('/purchaseForm', {state : {crypto,CryptosArr}})
   }
 
   return (

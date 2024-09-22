@@ -28,6 +28,7 @@ export default function DashBoardUser({}) {
         const CookieAuth = GetCookie('AuthToken')
         // je requête l'api
         const Data = await GetUserDashBoardInformations(CookieAuth)
+        console.log(Data);
         // On set les informations que l'on a besoins
         setUserInformation(Data)
         setUserName(Data.userConnected)
@@ -45,7 +46,6 @@ export default function DashBoardUser({}) {
   const Logout = (e) => {
     e.preventDefault()
     let cookies = (document.cookie).split(';')
-    console.log(cookies)
     cookies.forEach(cookie => {
       if(cookie.includes('AuthToken')){
         RemoveCookie('AuthToken');
