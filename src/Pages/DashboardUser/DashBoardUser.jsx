@@ -54,7 +54,6 @@ export default function DashBoardUser({}) {
     Navigate('/')
   }
 
-
   return (
     <>
       <div className={Styles.DashBoard}>

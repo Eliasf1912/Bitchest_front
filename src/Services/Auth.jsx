@@ -79,6 +79,37 @@ export async function GetUserDashBoardInformations(Cookie){
   }
 }
 
+export async function PurchaseCrypto(Cookie,Type,Bitcoins,Amount,Cotation){
+  try {
+    const Response = await fetch(`https://127.0.0.1:8000/api/user/transactions`, 
+      {
+        method : 'POST',
+        headers: {
+          "Content-Type" : "application/json",
+          "Authorization" : `Bearer ${Cookie}`
+        },
+        body : JSON.stringify(
+          { 
+            "type": Type,
+            "bitcoins" : Bitcoins,
+            "amount" : Amount,
+            "cotation" : Cotation
+          }
+        )
+      }
+    )
+    if(Response.ok){
+      return await Response.json()
+    }
+    else if(Response.status === 409){
+      const ErrorData = await Response.json()
+      throw new Error(ErrorData.message)
+    }
+  } catch (Error) {
+    throw Error
+  }
+}
+
 // Cookie méthode
 
 export function GetCookie(Nom){

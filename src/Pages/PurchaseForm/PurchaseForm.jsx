@@ -4,6 +4,8 @@ import { AiOutlineMenu,AiOutlineAppstore,AiOutlineWallet,AiOutlineSetting,AiOutl
 import { FaCoins } from "react-icons/fa6";
 import { NavLink, useNavigate,useLocation } from "react-router-dom";
 import SideBar from '../../Components/SideBar/SideBar';
+import { PurchaseCrypto,GetCookie } from '../../Services/Auth';
+import PopUp from '../../Components/PopUp/PopUp';
 
 export default function PurchaseForm() {
 
@@ -17,7 +19,9 @@ export default function PurchaseForm() {
   const [Method,setMethod] = useState('Coins')
   const [Cryptos,setCryptos]  = useState(CryptosArr)
   const [UnitInput,setUnitInput]  = useState(0)
-
+  const [AmountError,setAmountError] = useState(false)
+  const [PurchaseError, setPurchaseError] = useState(false)
+  const [ShowPopUp, setShowPopUp] = useState(false)
 
   const Logout = (e) => {
     e.preventDefault()
@@ -50,6 +54,7 @@ export default function PurchaseForm() {
         let TotalPrice  = Math.trunc((PriceCrypto * e.target.value))
         setTotalInput(TotalPrice)
         setAmountInput(e.target.value)
+        setAmountError(false)
       }
     })
   }
@@ -62,7 +67,29 @@ export default function PurchaseForm() {
       setUnitInput(cryptoData.price); // Mettre à jour UnitPrice en fonction de la crypto initiale
     }
   } }, [CryptoInput, Cryptos]);
-  
+
+  const SubmitPurchase = async (e) => {
+    e.preventDefault()
+    if(Method === 'Coins' && AmountInput > 0){
+      const CookieAuth = GetCookie('AuthToken')
+      let Cotation = Cryptos.find((c) => c.name === CryptoInput);
+      try {
+        await PurchaseCrypto(CookieAuth,'purchase',CryptoInput,AmountInput,Cotation.cotation)
+        setShowPopUp(true)
+      } catch (error) {
+        setPurchaseError(true)
+        setShowPopUp(true)
+      }
+    }else{
+      setAmountError(true)
+    }
+  }
+
+  const ClosePopUp = () => {
+    setPurchaseError(false)
+    setShowPopUp(false)
+  }
+   
   return (
     <>
       <div className={Styles.DashBoard}>
@@ -103,7 +130,7 @@ export default function PurchaseForm() {
                   }))
                 }
                 </select>
-                <input type='number' name='Amount' placeholder='Amount' value={AmountInput} onChange={HandleAmount}/>
+                <input type='number' name='Amount' placeholder='Amount' value={AmountInput} onChange={HandleAmount} className={AmountError ? Styles.Error : null}/>
 
               </div>
               <div>
@@ -137,12 +164,13 @@ export default function PurchaseForm() {
             </div>
             <div className={Styles.ButtonDiv}>
               <button>Cancel</button>
-              <button>Buy</button>
+              <button onClick={SubmitPurchase}>Buy</button>
             </div>
           </form>
         </section>
       </div>
       <SideBar />
+      <PopUp ErrorPopUp={PurchaseError} Show={ShowPopUp} CloseFunction={ClosePopUp}/>
     </>
   )
 }

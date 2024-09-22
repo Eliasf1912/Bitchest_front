@@ -83,6 +83,10 @@
 
 }
 
+.Error{
+  border: solid 2px Var.$Red;
+}
+
 .MenuOpen {
   @include BurgerMenu;
   transform: translateX(0px) 
